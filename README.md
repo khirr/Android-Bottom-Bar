@@ -14,11 +14,11 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.khirr:Android-Bottom-Bar:1.0.1'
+    compile 'com.github.khirr:Android-Bottom-Bar:1.0.2'
 }
 ```
 
-Add this view to your code, same id is mandatory
+Add this view to your code
 ```
 <net.khirr.library.bottombar.BottomBarView
         android:layout_width="match_parent"
@@ -31,8 +31,9 @@ Add items
 
 Java
 ```
+final BottomBarView bottomBarView = (BottomBarView) findViewById(R.id.bottomBarView);
 //  addItem method needs id, name, icon 
-mBottomBar = new BottomBar(this)
+mBottomBar = new BottomBar(this, bottomBarView)
         .addItem(new BottomBar.Item(0,
                 "Home",
                 R.drawable.ic_home_white_24dp))
