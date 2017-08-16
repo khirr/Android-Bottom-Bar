@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import net.khirr.library.bottombar.BottomBar;
+import net.khirr.library.bottombar.BottomBarView;
 import net.khirr.library.bottombar.MultipleFragmentsManager;
 
 import kotlin.jvm.functions.Function1;
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mBottomBar = new BottomBar(this)
+        final BottomBarView bottomBarView = (BottomBarView) findViewById(R.id.bottomBarView);
+
+        mBottomBar = new BottomBar(this, bottomBarView)
                 .addItem(new BottomBar.Item(0,
                         "Home",
                         R.drawable.ic_home_white_24dp))

@@ -11,7 +11,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 typealias OnItemClickListener = (Int) -> Boolean
-class BottomBar(private val context: Activity) {
+class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
     class Item(val id: Int, val title: String, val icon: Int)
     private class BarViewItem(val view: View,
@@ -31,7 +31,7 @@ class BottomBar(private val context: Activity) {
 
     private var selectedId: Int = -1
 
-    var bottomBar = context.findViewById(R.id.bottomBar) as RelativeLayout
+    var bottomBar = bottomBarView.findViewById(R.id.bottomBar) as RelativeLayout
     private var bottomBarItemsContainer: LinearLayout
 
     init {
