@@ -30,7 +30,7 @@ public class FragmentExample extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final TextView numberTextView = view.findViewById(R.id.numberTextView);
+        final TextView numberTextView = (TextView) view.findViewById(R.id.numberTextView);
         final int number = getArguments().getInt(FIELD_NUMBER);
 
         numberTextView.setText(String.valueOf(number));

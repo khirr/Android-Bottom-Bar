@@ -31,11 +31,11 @@ class BottomBar(private val context: Activity) {
 
     private var selectedId: Int = -1
 
-    var bottomBar: RelativeLayout = context.findViewById(R.id.bottomBar)
+    var bottomBar = context.findViewById(R.id.bottomBar) as RelativeLayout
     private var bottomBarItemsContainer: LinearLayout
 
     init {
-        bottomBarItemsContainer = bottomBar.findViewById(R.id.bottomBarItemsContainer)
+        bottomBarItemsContainer = bottomBar.findViewById(R.id.bottomBarItemsContainer) as LinearLayout
         bottomBarItemsContainer.removeAllViews()
     }
 
@@ -66,11 +66,11 @@ class BottomBar(private val context: Activity) {
 
     fun addItem(item: Item): BottomBar {
         val view = context.layoutInflater.inflate(R.layout.bottom_bar_item, bottomBarItemsContainer, false)
-        val container: RelativeLayout = view.findViewById(R.id.bottomBarItemContainer)
-        val badgeIndicator: View = view.findViewById(R.id.bottomBarBadgeIndicator)
-        val subItemsContainer: LinearLayout = view.findViewById(R.id.bottomBarSubItemsContainer)
-        val icon: ImageView = view.findViewById(R.id.bottomBarItemIconImageView)
-        val title: TextView = view.findViewById(R.id.bottomBarItemTitleTextView)
+        val container = view.findViewById(R.id.bottomBarItemContainer) as RelativeLayout
+        val badgeIndicator = view.findViewById(R.id.bottomBarBadgeIndicator) as View
+        val subItemsContainer = view.findViewById(R.id.bottomBarSubItemsContainer) as LinearLayout
+        val icon = view.findViewById(R.id.bottomBarItemIconImageView) as ImageView
+        val title = view.findViewById(R.id.bottomBarItemTitleTextView) as TextView
 
         //  Default values
         title.text = item.title
