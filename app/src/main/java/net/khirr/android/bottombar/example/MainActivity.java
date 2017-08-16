@@ -5,12 +5,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import net.khirr.library.bottombar.BottomBar;
+import net.khirr.library.bottombar.MultipleFragmentsManager;
 
 import kotlin.jvm.functions.Function1;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomBar mBottomBar;
+
+    //  Multiple Fragments Manager keeps Fragment status when change tabs
+    //  You can use directly user:
+    //  getSupportFragmentManager()
+    //      .beginTransaction()
+    //      .replace(R.id.frameLayout, FragmentExample.newInstance(integer))
+    //      .commitAllowingStateLoss();
+    private MultipleFragmentsManager mMultipleFragmentsManager;
+
+    private static final String TAG_HOME = "home";
+    private static final String TAG_CHAT = "chat";
+    private static final String TAG_NOTIFICATIONS = "notifications";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +44,28 @@ public class MainActivity extends AppCompatActivity {
                         R.drawable.ic_notifications_white_24dp))
                 .build();
 
+
+        //  Multiple Fragments Manager helps to keep fragment status when
+        //  load and back to already loaded fragment
+        mMultipleFragmentsManager = new MultipleFragmentsManager(this, R.id.frameLayout)
+                .addItem(FragmentExample.newInstance(0), TAG_HOME)
+                .addItem(FragmentExample.newInstance(1), TAG_CHAT)
+                .addItem(FragmentExample.newInstance(2), TAG_NOTIFICATIONS);
+
         mBottomBar.setOnItemClickListener(new Function1<Integer, Boolean>() {
             @Override
             public Boolean invoke(Integer integer) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frameLayout, FragmentExample.newInstance(integer))
-                        .commitAllowingStateLoss();
+                switch (integer) {
+                    case 0:
+                        mMultipleFragmentsManager.select(TAG_HOME);
+                        break;
+                    case 1:
+                        mMultipleFragmentsManager.select(TAG_CHAT);
+                        break;
+                    case 2:
+                        mMultipleFragmentsManager.select(TAG_NOTIFICATIONS);
+                        break;
+                }
                 return true;
             }
         });
