@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bottomBarColorWhite">#ffffff</color>
+    <color name="bottomBarColorDivider">#dcdcdc</color>
+    <color name="bottomBarColorSecondaryText">#757575</color>
+    <color name="bottomBarColorAccent">#FF4081</color>
+</resources>

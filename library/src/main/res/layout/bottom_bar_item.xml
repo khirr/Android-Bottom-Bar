@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:id="@+id/bottomBarItemContainer"
+    android:background="@drawable/bottom_bar_background_white_riple"
+    android:padding="2dp">
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/bottomBarSubItemsContainer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:tint="@color/bottomBarColorSecondaryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottomBarItemIconImageView"/>
+
+            <View
+                android:id="@+id/bottomBarBadgeIndicator"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/bottom_bar_background_circle_color" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:textSize="10sp"
+            android:id="@+id/bottomBarItemTitleTextView"
+            android:textColor="@color/bottomBarColorSecondaryText"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
