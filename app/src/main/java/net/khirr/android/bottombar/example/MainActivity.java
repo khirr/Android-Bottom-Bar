@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBackgroundColor(R.color.colorBackground)
                 .setUnselectedColor(R.color.colorUnselected)
                 .setSelectedColor(R.color.colorSelected)
+                .setDividerColor(R.color.colorDivider)
                 .addItem(new BottomBar.Item(0,
                         "Home",
                         R.drawable.ic_home_white_24dp))

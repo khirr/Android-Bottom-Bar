@@ -33,14 +33,17 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     private var selectedColor = Color.parseColor("#FF4081")
     private var unselectedColor = Color.parseColor("#757575")
     private var badgeColor = Color.parseColor("#FF4081")
+    private var dividerColor = Color.parseColor("#dcdcdc")
 
     private var selectedId: Int = -1
 
     var bottomBar = bottomBarView.findViewById(R.id.bottomBar) as RelativeLayout
     private var bottomBarItemsContainer: LinearLayout
+    private var bottomBarDivider: View
 
     init {
         bottomBarItemsContainer = bottomBar.findViewById(R.id.bottomBarItemsContainer) as LinearLayout
+        bottomBarDivider = bottomBar.findViewById(R.id.bottomBarDivider)
         bottomBarItemsContainer.removeAllViews()
     }
 
@@ -67,6 +70,12 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
     fun setBadgeColor(color: Int): BottomBar {
         badgeColor = getColor(color)
+        return this
+    }
+
+    fun setDividerColor(color: Int): BottomBar {
+        dividerColor = getColor(color)
+        setBackgroundColor(bottomBarDivider, dividerColor)
         return this
     }
 
