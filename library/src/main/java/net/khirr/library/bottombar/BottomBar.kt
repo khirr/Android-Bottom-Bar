@@ -2,7 +2,11 @@ package net.khirr.library.bottombar
 
 import android.app.Activity
 import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
+import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.ImageView
@@ -25,6 +29,7 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     private val barItems = ArrayList<BarItem>()
     private var onItemClickListener: OnItemClickListener? = null
 
+    private var backgroundColor = Color.parseColor("#FFFFFF")
     private var selectedColor = Color.parseColor("#FF4081")
     private var unselectedColor = Color.parseColor("#757575")
     private var badgeColor = Color.parseColor("#FF4081")
@@ -41,6 +46,12 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
     fun setOnItemClickListener(listener: OnItemClickListener): BottomBar {
         onItemClickListener = listener
+        return this
+    }
+
+    fun setBackgroundColor(color: Int): BottomBar {
+        backgroundColor = getColor(color)
+        setBackgroundColor(bottomBar, backgroundColor)
         return this
     }
 
@@ -75,6 +86,8 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         //  Default values
         title.text = item.title
         icon.setImageResource(item.icon)
+
+        setBackgroundColor(view, backgroundColor)
 
         val drawable = badgeIndicator.background as GradientDrawable
         drawable.setColor(badgeColor)
@@ -148,6 +161,32 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     fun onBackPressed(id: Int): Int {
         forcePressed(id)
         return id
+    }
+
+    private fun setBackgroundColor(view: View?, resColor: Int) {
+        if (view == null || view.background == null)
+            return
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view.background is RippleDrawable) {
+            val rippleDrawable = view.background as RippleDrawable
+            rippleDrawable.setColorFilter(resColor, PorterDuff.Mode.MULTIPLY)
+        } else {
+            if (view.background is ColorDrawable) {
+                //  Non ripple
+                val drawable = view.background as ColorDrawable
+                //  Stroke
+                //drawable.setStroke(1, resColor);
+                //  Solid
+                drawable.color = resColor
+            } else if (view.background is GradientDrawable) {
+                //  Non ripple
+                val drawable = view.background as GradientDrawable
+                //  Stroke
+                //drawable.setStroke(1, resColor);
+                //  Solid
+                drawable.setColor(resColor)
+            }
+        }
     }
 
 }

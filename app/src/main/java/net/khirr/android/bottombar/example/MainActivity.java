@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         final BottomBarView bottomBarView = (BottomBarView) findViewById(R.id.bottomBarView);
 
         mBottomBar = new BottomBar(this, bottomBarView)
+                .setBackgroundColor(R.color.colorBackground)
+                .setUnselectedColor(R.color.colorUnselected)
+                .setSelectedColor(R.color.colorSelected)
                 .addItem(new BottomBar.Item(0,
                         "Home",
                         R.drawable.ic_home_white_24dp))
