@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 .addItem(FragmentExample.newInstance(1), TAG_CHAT)
                 .addItem(FragmentExample.newInstance(2), TAG_NOTIFICATIONS);
 
+        mBottomBar.setBadgeCount(2, 5);
+
         mBottomBar.setOnItemClickListener(new Function1<Integer, Boolean>() {
             @Override
             public Boolean invoke(Integer integer) {

@@ -13,17 +13,22 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import q.rorbin.badgeview.QBadgeView
 
 typealias OnItemClickListener = (Int) -> Boolean
 class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
     class Item(val id: Int, val title: String, val icon: Int)
+
     private class BarViewItem(val view: View,
                               val container: RelativeLayout,
                               val badgeIndicator: View,
                               val subItemsContainer: LinearLayout,
                               val icon: ImageView,
-                              val title: TextView)
+                              val title: TextView) {
+        var badgeCountView: QBadgeView? = null
+    }
+
     private class BarItem(val view: BarViewItem, val item: Item)
 
     private val barItems = ArrayList<BarItem>()
@@ -34,6 +39,7 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     private var unselectedColor = Color.parseColor("#757575")
     private var badgeColor = Color.parseColor("#FF4081")
     private var dividerColor = Color.parseColor("#dcdcdc")
+    private var badgeStrokeColor = Color.parseColor("#FFFFFF")
 
     private var selectedId: Int = -1
 
@@ -76,6 +82,11 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     fun setDividerColor(color: Int): BottomBar {
         dividerColor = getColor(color)
         setBackgroundColor(bottomBarDivider, dividerColor)
+        return this
+    }
+
+    fun setBadgeStrokeColor(color: Int): BottomBar {
+        badgeStrokeColor = getColor(color)
         return this
     }
 
@@ -170,6 +181,36 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     fun onBackPressed(id: Int): Int {
         forcePressed(id)
         return id
+    }
+
+    fun setBadgeCount(id: Int, count: Int) {
+        barItems.forEach { barItem ->
+            if (barItem.item.id == id) {
+                setBadge(barItem, count)
+                return
+            }
+        }
+    }
+
+    private fun setBadge(barItem: BarItem, count: Int) {
+        if (barItem.view.badgeCountView == null) {
+            val badge = QBadgeView(context)
+            badge.isShowShadow = false
+            badge.stroke(badgeStrokeColor, 1.0f, true)
+            badge.badgeBackgroundColor = badgeColor
+            badge.bindTarget(barItem.view.subItemsContainer)
+            barItem.view.badgeCountView = badge
+        }
+
+        if (count == 0) {
+            barItem.view.badgeCountView?.hide(false)
+        } else {
+            if (count > 10)
+                barItem.view.badgeCountView?.badgeText = "10+"
+            else
+                barItem.view.badgeCountView?.badgeNumber = count
+        }
+
     }
 
     private fun setBackgroundColor(view: View?, resColor: Int) {
