@@ -41,7 +41,7 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     private var dividerColor = Color.parseColor("#dcdcdc")
     private var badgeStrokeColor = Color.parseColor("#FFFFFF")
 
-    private var selectedId: Int = -1
+    var selectedId: Int = -1
 
     var bottomBar = bottomBarView.findViewById(R.id.bottomBar) as RelativeLayout
     private var bottomBarItemsContainer: LinearLayout
