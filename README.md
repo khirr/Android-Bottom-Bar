@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.khirr:Android-Bottom-Bar:1.0.4'
+    compile 'com.github.khirr:Android-Bottom-Bar:1.0.5'
 }
 ```
 
