@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_centerHorizontal="true"
         android:id="@+id/bottomBarSubItemsContainer"
-        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -23,8 +23,8 @@
             <ImageView
                 android:layout_centerInParent="true"
                 android:tint="@color/bottomBarColorSecondaryText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:id="@+id/bottomBarItemIconImageView"/>
 
             <View
@@ -44,7 +44,7 @@
             android:id="@+id/bottomBarItemTitleTextView"
             android:textColor="@color/bottomBarColorSecondaryText"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"/>
