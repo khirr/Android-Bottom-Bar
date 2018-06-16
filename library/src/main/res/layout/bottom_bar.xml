@@ -15,12 +15,12 @@
     <View
         android:id="@+id/bottomBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:background="@color/bottomBarColorDivider"/>
     <View
         android:id="@+id/bottomBarBottomDivider"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:background="@color/bottomBarColorDivider"
         android:visibility="gone"
         android:layout_alignParentBottom="true"/>
