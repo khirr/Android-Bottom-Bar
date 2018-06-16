@@ -40,16 +40,20 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     private var badgeColor = Color.parseColor("#FF4081")
     private var dividerColor = Color.parseColor("#dcdcdc")
     private var badgeStrokeColor = Color.parseColor("#FFFFFF")
+    private var bottomDividerColor = Color.parseColor("#FF4081")
+    private var enableBottomDivider = false
 
     var selectedId: Int = -1
 
     var bottomBar = bottomBarView.findViewById(R.id.bottomBar) as RelativeLayout
     private var bottomBarItemsContainer: LinearLayout
     private var bottomBarDivider: View
+    private var bottomBarDividerBottom: View
 
     init {
         bottomBarItemsContainer = bottomBar.findViewById(R.id.bottomBarItemsContainer) as LinearLayout
         bottomBarDivider = bottomBar.findViewById(R.id.bottomBarDivider)
+        bottomBarDividerBottom = bottomBar.findViewById(R.id.bottomBarBottomDivider)
         bottomBarItemsContainer.removeAllViews()
     }
 
@@ -87,6 +91,22 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
     fun setBadgeStrokeColor(color: Int): BottomBar {
         badgeStrokeColor = getColor(color)
+        return this
+    }
+
+    fun setBottomDividerColor(color: Int): BottomBar {
+        bottomDividerColor = getColor(color)
+        bottomBarDividerBottom.setBackgroundColor(bottomDividerColor)
+        return this
+    }
+
+    fun enableBottomDivider(enable: Boolean): BottomBar {
+        enableBottomDivider = enable
+        if (enableBottomDivider) {
+            bottomBarDividerBottom.visibility = View.VISIBLE
+        } else {
+            bottomBarDividerBottom.visibility = View.GONE
+        }
         return this
     }
 
