@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 .setSelectedColor(R.color.colorSelected)
                 .setDividerColor(R.color.colorDivider)
                 .addItem(new BottomBar.Item(0,
-                        "Home",
                         R.drawable.ic_home_white_24dp))
                 .addItem(new BottomBar.Item(1,
                         "Chat",

@@ -18,7 +18,22 @@ import q.rorbin.badgeview.QBadgeView
 typealias OnItemClickListener = (Int) -> Boolean
 class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
-    class Item(val id: Int, val title: String, val icon: Int)
+    class Item {
+        var id: Int
+        var title = ""
+        var icon: Int
+
+        constructor(id: Int, title: String, icon: Int) {
+            this.id = id
+            this.title = title
+            this.icon = icon
+        }
+
+        constructor(id: Int, icon: Int) {
+            this.id = id
+            this.icon = icon
+        }
+    }
 
     private class BarViewItem(val view: View,
                               val container: RelativeLayout,
@@ -122,6 +137,8 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         val subItemsContainer = view.findViewById(R.id.bottomBarSubItemsContainer) as LinearLayout
         val icon = view.findViewById(R.id.bottomBarItemIconImageView) as ImageView
         val title = view.findViewById(R.id.bottomBarItemTitleTextView) as TextView
+
+        title.visibility = if (item.title.isEmpty()) View.GONE else View.VISIBLE
 
         //  Default values
         title.text = item.title
