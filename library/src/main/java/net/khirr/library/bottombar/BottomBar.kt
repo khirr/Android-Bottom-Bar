@@ -1,6 +1,7 @@
 package net.khirr.library.bottombar
 
 import android.app.Activity
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
@@ -57,6 +58,7 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     private var badgeStrokeColor = Color.parseColor("#FFFFFF")
     private var bottomDividerColor = Color.parseColor("#FF4081")
     private var enableBottomDivider = false
+    private var badgeIndicatorSize = dpToPx(8)
 
     var selectedId: Int = -1
 
@@ -125,6 +127,11 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         return this
     }
 
+    fun setBadgeIndicatorSize(dp: Int): BottomBar {
+        badgeIndicatorSize = dp
+        return this
+    }
+
     fun forcePressed(id: Int) {
         setPressed(id)
         onItemClickListener?.invoke(id)
@@ -149,6 +156,10 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         val drawable = badgeIndicator.background as GradientDrawable
         drawable.setColor(badgeColor)
 
+        // Badge indicator size
+        badgeIndicator.layoutParams.width = badgeIndicatorSize
+        badgeIndicator.layoutParams.height = badgeIndicatorSize
+
         //  Default colors
         title.setTextColor(unselectedColor)
         tint(icon, unselectedColor)
@@ -157,10 +168,17 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         val barItem = BarItem(viewItem, item)
         barItems.add(barItem)
 
-        if (barItems.size == 1)
+        if (barItems.size == 1) {
             setPressed(barItem.item.id)
+        }
+
+
 
         return this
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        return (dp * Resources.getSystem().displayMetrics.density).toInt()
     }
 
     private fun setPressed(id: Int) {

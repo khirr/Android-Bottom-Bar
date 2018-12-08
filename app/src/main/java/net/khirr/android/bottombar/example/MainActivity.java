@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 .addItem(FragmentExample.newInstance(2), TAG_NOTIFICATIONS);
 
         mBottomBar.setBadgeCount(2, 5);
+        mBottomBar.setBadgeIndicator(0, true);
 
         mBottomBar.setOnItemClickListener(new Function1<Integer, Boolean>() {
             @Override
