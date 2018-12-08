@@ -189,7 +189,16 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         return this
     }
 
-    fun setBadgeIndicator(id: Int) {
+    fun setBadgeIndicator(id: Int, visible: Boolean) {
+        barItems.forEach { barItem ->
+            if (barItem.item.id == id) {
+                barItem.view.badgeIndicator.visibility = if (visible) View.VISIBLE else View.GONE
+                return
+            }
+        }
+    }
+
+    fun showBadgeIndicator(id: Int) {
         barItems.forEach { barItem ->
             if (barItem.item.id == id) {
                 barItem.view.badgeIndicator.visibility = View.VISIBLE
