@@ -1,6 +1,8 @@
 # Android-Bottom-Bar
 A very simple Android way to use Bottom Bar on Android
 
+[![](https://jitpack.io/v/khirr/Android-Bottom-Bar.svg)](https://jitpack.io/#khirr/Android-Bottom-Bar)
+
 Api-level 14+
 
 Usage:
