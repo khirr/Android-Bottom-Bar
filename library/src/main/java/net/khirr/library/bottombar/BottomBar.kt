@@ -128,7 +128,7 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
     }
 
     fun setBadgeIndicatorSize(dp: Int): BottomBar {
-        badgeIndicatorSize = dp
+        badgeIndicatorSize = dpToPx(dp)
         return this
     }
 
