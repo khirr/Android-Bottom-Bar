@@ -1,10 +1,13 @@
 package net.khirr.android.bottombar.example;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import net.khirr.library.bottombar.BottomBar;
+import net.khirr.library.bottombar.BottomBarColors;
 import net.khirr.library.bottombar.BottomBarView;
 import net.khirr.library.bottombar.MultipleFragmentsManager;
 
@@ -35,19 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         final BottomBarView bottomBarView = (BottomBarView) findViewById(R.id.bottomBarView);
 
+        final BottomBarColors bottomBarColors = new BottomBarColors()
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.colorBackground))
+                .setUnselectedColor(ContextCompat.getColor(this, R.color.colorUnselected))
+                .setSelectedColor(ContextCompat.getColor(this, R.color.colorSelected))
+                .setBadgeColor(Color.parseColor("#00ab48"))
+                .setDividerColor(Color.parseColor("#b23c09"));
+
         mBottomBar = new BottomBar(this, bottomBarView)
-                .setBackgroundColor(R.color.colorBackground)
-                .setUnselectedColor(R.color.colorUnselected)
-                .setSelectedColor(R.color.colorSelected)
-                .setDividerColor(R.color.colorDivider)
-                .addItem(new BottomBar.Item(0,
-                        R.drawable.ic_home_white_24dp))
-                .addItem(new BottomBar.Item(1,
-                        "Chat",
-                        R.drawable.ic_chat_bubble_white_24dp))
-                .addItem(new BottomBar.Item(2,
-                        "Notifications",
-                        R.drawable.ic_notifications_white_24dp))
+                .setBottomBarColors(bottomBarColors)
+                .addItem(new BottomBar.Item(0, R.drawable.ic_home_white_24dp))
+                .addItem(new BottomBar.Item(1, "Chat", R.drawable.ic_chat_bubble_white_24dp))
+                .addItem(new BottomBar.Item(2, "Notifications", R.drawable.ic_notifications_white_24dp))
                 .build();
 
 

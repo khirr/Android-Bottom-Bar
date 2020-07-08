@@ -5,6 +5,10 @@ A very simple Android way to use Bottom Bar on Android
 
 Api-level 14+
 
+Versions:
+1.0.10 uses AppCompat libraries
+2.0.0 uses AndroidX libraries
+
 Usage:
 
 Add the repository to your gradle app
@@ -16,7 +20,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.khirr:Android-Bottom-Bar:1.0.10'
+    compile 'com.github.khirr:Android-Bottom-Bar:2.0.0'
 }
 ```
 
@@ -34,17 +38,20 @@ Add items
 Java
 ```
 final BottomBarView bottomBarView = (BottomBarView) findViewById(R.id.bottomBarView);
+//  set custom colors
+final BottomBarColors bottomBarColors = new BottomBarColors()
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.colorBackground))
+                .setUnselectedColor(ContextCompat.getColor(this, R.color.colorUnselected))
+                .setSelectedColor(ContextCompat.getColor(this, R.color.colorSelected))
+                .setBadgeColor(Color.parseColor("#00ab48"))
+                .setDividerColor(Color.parseColor("#b23c09"));
+
 //  addItem method needs id, name, icon 
 mBottomBar = new BottomBar(this, bottomBarView)
-        .addItem(new BottomBar.Item(0,
-                "Home",
-                R.drawable.ic_home_white_24dp))
-        .addItem(new BottomBar.Item(1,
-                "Chat",
-                R.drawable.ic_chat_bubble_white_24dp))
-        .addItem(new BottomBar.Item(2,
-                "Notifications",
-                R.drawable.ic_notifications_white_24dp))
+        .setBottomBarColors(bottomBarColors)
+        .addItem(new BottomBar.Item(0, "Home", R.drawable.ic_home_white_24dp))
+        .addItem(new BottomBar.Item(1, "Chat", R.drawable.ic_chat_bubble_white_24dp))
+        .addItem(new BottomBar.Item(2, "Notifications", R.drawable.ic_notifications_white_24dp))
         .build();
 ```
 

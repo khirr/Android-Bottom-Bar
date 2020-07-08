@@ -2,13 +2,12 @@ package net.khirr.library.bottombar
 
 import android.app.Activity
 import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.os.Build
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -49,16 +48,9 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
 
     private val barItems = ArrayList<BarItem>()
     private var onItemClickListener: OnItemClickListener? = null
-
-    private var backgroundColor = Color.parseColor("#FFFFFF")
-    private var selectedColor = Color.parseColor("#FF4081")
-    private var unselectedColor = Color.parseColor("#757575")
-    private var badgeColor = Color.parseColor("#FF4081")
-    private var dividerColor = Color.parseColor("#dcdcdc")
-    private var badgeStrokeColor = Color.parseColor("#FFFFFF")
-    private var bottomDividerColor = Color.parseColor("#FF4081")
     private var enableBottomDivider = false
     private var badgeIndicatorSize = dpToPx(8)
+    private var bottomBarColors = BottomBarColors()
 
     var selectedId: Int = -1
 
@@ -79,41 +71,8 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         return this
     }
 
-    fun setBackgroundColor(color: Int): BottomBar {
-        backgroundColor = getColor(color)
-        setBackgroundColor(bottomBar, backgroundColor)
-        return this
-    }
-
-    fun setSelectedColor(color: Int): BottomBar {
-        selectedColor = getColor(color)
-        return this
-    }
-
-    fun setUnselectedColor(color: Int): BottomBar {
-        unselectedColor = getColor(color)
-        return this
-    }
-
-    fun setBadgeColor(color: Int): BottomBar {
-        badgeColor = getColor(color)
-        return this
-    }
-
-    fun setDividerColor(color: Int): BottomBar {
-        dividerColor = getColor(color)
-        setBackgroundColor(bottomBarDivider, dividerColor)
-        return this
-    }
-
-    fun setBadgeStrokeColor(color: Int): BottomBar {
-        badgeStrokeColor = getColor(color)
-        return this
-    }
-
-    fun setBottomDividerColor(color: Int): BottomBar {
-        bottomDividerColor = getColor(color)
-        bottomBarDividerBottom.setBackgroundColor(bottomDividerColor)
+    fun setBottomBarColors(bottomBarColors: BottomBarColors): BottomBar {
+        this.bottomBarColors = bottomBarColors
         return this
     }
 
@@ -151,18 +110,18 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         title.text = item.title
         icon.setImageResource(item.icon)
 
-        setBackgroundColor(view, backgroundColor)
+        setBackgroundColor(view, bottomBarColors.backgroundColor)
 
         val drawable = badgeIndicator.background as GradientDrawable
-        drawable.setColor(badgeColor)
+        drawable.setColor(bottomBarColors.badgeColor)
 
         // Badge indicator size
         badgeIndicator.layoutParams.width = badgeIndicatorSize
         badgeIndicator.layoutParams.height = badgeIndicatorSize
 
         //  Default colors
-        title.setTextColor(unselectedColor)
-        tint(icon, unselectedColor)
+        title.setTextColor(bottomBarColors.unselectedColor)
+        tint(icon, bottomBarColors.unselectedColor)
 
         val viewItem = BarViewItem(view, container, badgeIndicator, subItemsContainer, icon, title)
         val barItem = BarItem(viewItem, item)
@@ -171,8 +130,6 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         if (barItems.size == 1) {
             setPressed(barItem.item.id)
         }
-
-
 
         return this
     }
@@ -185,11 +142,11 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         selectedId = id
 
         barItems.forEach { item ->
-            item.view.title.setTextColor(unselectedColor)
-            tint(item.view.icon, unselectedColor)
+            item.view.title.setTextColor(bottomBarColors.unselectedColor)
+            tint(item.view.icon, bottomBarColors.unselectedColor)
             if (item.item.id == id) {
-                item.view.title.setTextColor(selectedColor)
-                tint(item.view.icon, selectedColor)
+                item.view.title.setTextColor(bottomBarColors.selectedColor)
+                tint(item.view.icon, bottomBarColors.selectedColor)
             }
         }
     }
@@ -204,6 +161,9 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
                     setPressed(barItem.item.id)
             }
         }
+        setBackgroundColor(bottomBar, bottomBarColors.backgroundColor)
+        setBackgroundColor(bottomBarDivider, bottomBarColors.dividerColor)
+        bottomBarDividerBottom.setBackgroundColor(bottomBarColors.bottomDividerColor)
         return this
     }
 
@@ -260,8 +220,8 @@ class BottomBar(private val context: Activity, bottomBarView: BottomBarView) {
         if (barItem.view.badgeCountView == null) {
             val badge = QBadgeView(context)
             badge.isShowShadow = false
-            badge.stroke(badgeStrokeColor, 1.0f, true)
-            badge.badgeBackgroundColor = badgeColor
+            badge.stroke(bottomBarColors.badgeStrokeColor, 1.0f, true)
+            badge.badgeBackgroundColor = bottomBarColors.badgeColor
             badge.bindTarget(barItem.view.subItemsContainer)
             barItem.view.badgeCountView = badge
         }
